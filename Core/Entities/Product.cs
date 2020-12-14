@@ -16,7 +16,8 @@ namespace Core.Entities
         public string Description { get; set; }
         public string Producer { get; set; }
         public ProductType Type { get; set; }
-        public ICollection<ComboDetail> ComboDetails { get; set; } = new List<ComboDetail>();
+        public virtual ICollection<ComboDetail> ComboDetails { get; set; } = new List<ComboDetail>();
+        public virtual ICollection<Storage> Storages { get; set; } = new List<Storage>();
         [NotMapped]
         public string TypeName { get { return Type.Convert(); } }
     }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class ComboDetail
+    public class Storage
     {
-        public int ComboId { get; set; }
-        public int ProductId { get; set; }
-        public virtual Combo Combo { get; set; }
-        public virtual Product Product { get; set; }
+        public int Id { get; set; }
         public int Quantity { get; set; }
+        public DateTime DateChange { get; set; } = DateTime.Now;
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
+
     }
 }

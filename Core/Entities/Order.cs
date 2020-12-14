@@ -17,8 +17,8 @@ namespace Core.Entities
         public string DeliveryAddress { get; set; }
         public OrderStatus Status { get; set; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+        public virtual Customer Customer { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
         [NotMapped]
         public string TypeName { get { return Status.Convert(); } }
     }

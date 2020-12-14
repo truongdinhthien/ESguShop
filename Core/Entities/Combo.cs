@@ -11,6 +11,6 @@ namespace Core.Entities
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public ICollection<ComboDetail> ComboDetails { get; set; } = new List<ComboDetail>(); 
+        public virtual ICollection<ComboDetail> ComboDetails { get; set; } = new List<ComboDetail>(); 
     }
 }
