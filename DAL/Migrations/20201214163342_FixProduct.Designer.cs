@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201214123240_DatabaseV1")]
-    partial class DatabaseV1
+    [Migration("20201214163342_FixProduct")]
+    partial class FixProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,16 +39,10 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Core.Entities.ComboDetail", b =>
                 {
-                    b.Property<int>("ComboId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ComboId1")
+                    b.Property<string>("ComboId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProductId1")
+                    b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Quantity")
@@ -56,9 +50,7 @@ namespace DAL.Migrations
 
                     b.HasKey("ComboId", "ProductId");
 
-                    b.HasIndex("ComboId1");
-
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ComboDetails");
                 });
@@ -149,6 +141,9 @@ namespace DAL.Migrations
                     b.Property<string>("Producer")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -167,10 +162,7 @@ namespace DAL.Migrations
                     b.Property<DateTime>("DateChange")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductId1")
+                    b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Quantity")
@@ -178,7 +170,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Storages");
                 });
@@ -383,11 +375,15 @@ namespace DAL.Migrations
                 {
                     b.HasOne("Core.Entities.Combo", "Combo")
                         .WithMany("ComboDetails")
-                        .HasForeignKey("ComboId1");
+                        .HasForeignKey("ComboId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.Product", "Product")
                         .WithMany("ComboDetails")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Combo");
 
@@ -420,7 +416,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("Core.Entities.Product", "Product")
                         .WithMany("Storages")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });

@@ -20,12 +20,12 @@ namespace DAL.Data
             modelBuilder.Entity<OrderDetail>().HasKey(od => new { od.OrderId, od.ItemId });
         }
 
-        public DbSet<Product> Products { get; }
-        public DbSet<Combo> Combos { get; }
-        public DbSet<ComboDetail> ComboDetails { get; }
-        public DbSet<Customer> Customers { get; }
-        public DbSet<Order> Orders { get; }
-        public DbSet<OrderDetail> OrderDetails { get; }
-        public DbSet<Storage> Storages { get; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Combo> Combos { get; set; }
+        public DbSet<ComboDetail> ComboDetails { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Storage> Storages { get; set; }
     }
 }

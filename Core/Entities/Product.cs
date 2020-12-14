@@ -15,6 +15,7 @@ namespace Core.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string Producer { get; set; }
+        public int Quantity { get; set; }
         public ProductType Type { get; set; }
         public virtual ICollection<ComboDetail> ComboDetails { get; set; } = new List<ComboDetail>();
         public virtual ICollection<Storage> Storages { get; set; } = new List<Storage>();

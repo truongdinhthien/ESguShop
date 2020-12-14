@@ -35,6 +35,7 @@ namespace WebMVCUI
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
                     await SeedData.SeedIdentity(userManager, roleManager);
+                    await SeedData.SeedAppDb(context);
                 }
                 catch (Exception ex)
                 {

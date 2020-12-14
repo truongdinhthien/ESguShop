@@ -78,27 +78,25 @@ namespace DAL.Migrations
                 name: "ComboDetails",
                 columns: table => new
                 {
-                    ComboId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    ComboId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ProductId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ComboId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ComboDetails", x => new { x.ComboId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ComboDetails_Combos_ComboId1",
-                        column: x => x.ComboId1,
+                        name: "FK_ComboDetails_Combos_ComboId",
+                        column: x => x.ComboId,
                         principalTable: "Combos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ComboDetails_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_ComboDetails_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,15 +107,14 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     DateChange = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    ProductId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Storages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Storages_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_Storages_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -144,14 +141,9 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ComboDetails_ComboId1",
+                name: "IX_ComboDetails_ProductId",
                 table: "ComboDetails",
-                column: "ComboId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ComboDetails_ProductId1",
-                table: "ComboDetails",
-                column: "ProductId1");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
@@ -159,9 +151,9 @@ namespace DAL.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Storages_ProductId1",
+                name: "IX_Storages_ProductId",
                 table: "Storages",
-                column: "ProductId1");
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

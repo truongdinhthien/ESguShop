@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Enumerations
 {
-    public static class ExtensionExtension
+    public static class EnumExtension
     {
         public static string Convert(this OrderStatus status)
         {
