@@ -1,4 +1,5 @@
-﻿using DAL.Data;
+﻿using Core.Common.Interfaces;
+using DAL.Data;
 using DAL.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -27,6 +28,8 @@ namespace DAL
                 config.Password.RequireUppercase = false;
                 config.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
             return services;
         }
     }
