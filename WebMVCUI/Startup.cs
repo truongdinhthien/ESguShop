@@ -1,3 +1,4 @@
+using BUS;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace WebMVCUI
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.RegistDAL(Configuration);
+            services.RegistBUS();
 
             services.ConfigureApplicationCookie(options =>
             {
