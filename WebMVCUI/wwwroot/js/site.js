@@ -3,14 +3,6 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-    var totalAmount = localStorage.getItem("totalAmount");
-    if (totalAmount == null) {
-        $("#AmountItemInBasket").text("");
-    }
-    else {
-        $("#AmountItemInBasket").text(`(${totalAmount})`);
-    }
-
     $(".AddToCart").submit(function (e) {
         e.preventDefault();
         var form = $(this);
@@ -19,9 +11,7 @@ $(document).ready(function () {
             url: '/Basket/AddToCart',
             data: form.serialize(),
             success: function (data) {
-                console.log(data);
                 $("#AmountItemInBasket").text(`(${data.totalAmount})`);
-                localStorage.setItem("totalAmount", data.totalAmount);
             }
         })
     })
@@ -32,8 +22,6 @@ $(document).ready(function () {
             url: '/Basket/DeleteAllCart',
             success: function (data) {
                 $("#BasketBodyTable").html(data);
-                $("#AmountItemInBasket").text("");
-                localStorage.removeItem("totalAmount");
             }
         })
     })
