@@ -1,0 +1,30 @@
+﻿@model BasketViewModel
+
+@{
+    ViewData["Title"] = "Trang giỏ hàng";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+        </tr>
+    </thead>
+    <tbody id="BasketBodyTable">
+        <partial name="_Basket" model="@Model"/>
+    </tbody>
+</table>

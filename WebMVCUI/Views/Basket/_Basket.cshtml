@@ -1,0 +1,47 @@
+﻿@model BasketViewModel
+@if (Model == null)
+{
+    <tr>
+        <td colspan="5">
+            <p style="text-align:center; margin: 0;font-weight:600">Giỏ hàng trống</p>
+        </td>
+    </tr>
+}
+else
+{
+    @foreach (var item in Model.BasketItems)
+    {
+        <tr>
+            <td>
+                @item.ItemId
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.PriceFormat
+            </td>
+            <td>
+                @item.Amount
+            </td>
+            <td>
+                @item.TotalPriceFormat
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3">Tổng tiền</td>
+        <td>@Model.TotalAmount</td>
+        <td>@Model.TotalPriceFormat</td>
+    </tr>
+    <tr>
+        <td colspan="3">Thao tác</td>
+        <td>
+            <button id="DeleteAllCart" class="btn btn-danger">Xóa toàn bộ</button>
+        </td>
+        <td>
+            <button id="Checkout" class="btn btn-primary">Thanh toán</button>
+        </td>
+    </tr>
+}
+

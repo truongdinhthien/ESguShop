@@ -16,7 +16,13 @@
                         <div class="card-body">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">@item.Price.ToString("C")</p>
-                            <a href="#" class="btn btn-primary">Thêm vào giỏ</a>
+                            <form method="post" class="AddToCart" id="@item.Id">
+                                <fieldset>
+                                    <input type="hidden" name="Id" value="@item.Id" />
+                                    <input type="hidden" name="Amount" value="1" />
+                                    <button type="submit" name="button" class="btn btn-primary">Thêm vào giỏ</button>
+                                </fieldset>
+                            </form>
                             <a href="#" class="btn btn-primary">Xem chi tiết</a>
                         </div>
                     </div>

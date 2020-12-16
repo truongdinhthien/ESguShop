@@ -16,6 +16,12 @@ namespace BUS.Catalogs
         {
             _comboRepository = comboRepository;
         }
+
+        public async Task<Combo> GetByIdAsync(string id)
+        {
+            return await _comboRepository.GetByIdAsync(id);
+        }
+
         public async Task<IEnumerable<Combo>> ListAsync()
         {
             return await _comboRepository.ListAsync();

@@ -10,5 +10,6 @@ namespace BUS.Catalogs.Interfaces
     public interface IProductService
     {
         Task<IEnumerable<Product>> ListAsync();
+        Task<Product> GetByIdAsync(string id);
     }
 }

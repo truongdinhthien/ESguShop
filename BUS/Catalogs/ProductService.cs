@@ -16,6 +16,10 @@ namespace BUS.Catalogs
         {
             _productRepository = productRepository;
         }
+        public async Task<Product> GetByIdAsync(string id)
+        {
+            return await _productRepository.GetByIdAsync(id);
+        }
         public async Task<IEnumerable<Product>> ListAsync()
         {
             return await _productRepository.ListAsync();

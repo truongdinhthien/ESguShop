@@ -10,5 +10,6 @@ namespace BUS.Catalogs.Interfaces
     public interface IComboService
     {
         Task<IEnumerable<Combo>> ListAsync();
+        Task<Combo> GetByIdAsync(string id);
     }
 }
