@@ -1,5 +1,7 @@
 ﻿using BUS.Catalogs;
 using BUS.Catalogs.Interfaces;
+using BUS.Customers;
+using BUS.Customers.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -11,6 +13,7 @@ namespace BUS
         {
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IComboService, ComboService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             return services;
         }
     }

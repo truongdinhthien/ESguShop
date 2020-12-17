@@ -23,6 +23,7 @@ namespace DAL.Data
                     Id = "idseed1",
                     UserName = "username1@gmail.com",
                     Email = "username1@gmail.com",
+                    PhoneNumber="0123456789",
                 };
                 await userManager.CreateAsync(user1, DEFAULT_PASSWORD);
             }
@@ -94,6 +95,16 @@ namespace DAL.Data
                             },
                         }
                     },
+                });
+                await context.SaveChangesAsync();
+            }    
+            if(!context.Customers.Any())
+            {
+                context.Customers.Add(new Customer
+                {
+                    UserId= "idseed1",
+                    FullName="Nguyen Van A",
+                    Address="Dia chi trai dat",
                 });
                 await context.SaveChangesAsync();
             }    
