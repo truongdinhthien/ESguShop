@@ -8,39 +8,29 @@ using DAL.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebMVCUI.Models;
+using WebMVCUI.Service.Interfaces;
 
 namespace WebMVCUI.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly ICustomerService _customerService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private ICurrentBuyerService _currentBuyerService;
 
-        public IndexModel(ICustomerService customerService, UserManager<ApplicationUser> userManager)
+        public IndexModel(ICurrentBuyerService currentBuyerService)
         {
-            _customerService = customerService;
-            _userManager = userManager;
+            _currentBuyerService = currentBuyerService;
         }
+
         [BindProperty]
         public CustomerModel Customer { get; set; }
-        public class CustomerModel
+        public async Task<IActionResult> OnGetAsync()
         {
-            public string FullName { get; set; }
-            public string Address { get; set; }
-            public string Email { get; set; }
-            public string PhoneNumber { get; set; }
-        }
-        public async Task OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var customer = await _customerService.GetByUserIdAsync(user.Id);
-            Customer = new CustomerModel
-            {
-                FullName = customer.FullName,
-                Address = customer.Address,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-            };
+            var returnUrl = Url.Content("~/");
+            var buyer = await _currentBuyerService.GetInformation(User);
+            if(buyer ==  null) return LocalRedirect(returnUrl);
+            Customer = buyer;
+            return Page();
         }
     }
 }

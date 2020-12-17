@@ -1,5 +1,5 @@
 ﻿@model BasketViewModel
-@if (Model == null)
+@if (Model == null) 
 {
     <tr>
         <td colspan="5">
@@ -35,13 +35,13 @@ else
         <td>@Model.TotalPriceFormat</td>
     </tr>
     <tr>
-        <td colspan="3">Thao tác</td>
+        <td colspan="4">Thao tác</td>
         <td>
             <button id="DeleteAllCart" class="btn btn-danger">Xóa toàn bộ</button>
         </td>
-        <td>
+        @*<td>
             <button id="Checkout" class="btn btn-primary">Thanh toán</button>
-        </td>
+        </td>*@
     </tr>
 }
 

@@ -1,30 +1,66 @@
-﻿@model BasketViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using DAL.Identity;
+@using WebMVCUI.Service.Interfaces;
 
+@model BasketViewModel
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ICurrentBuyerService CurrentBuyer
 @{
     ViewData["Title"] = "Trang giỏ hàng";
 }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>
-                Mã sản phẩm
-            </th>
-            <th>
-                Tên
-            </th>
-            <th>
-                Giá
-            </th>
-            <th>
-                Số lượng
-            </th>
-            <th>
-                Tổng tiền
-            </th>
-        </tr>
-    </thead>
-    <tbody id="BasketBodyTable">
-        <partial name="_Basket" model="@Model"/>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Mã sản phẩm
+                    </th>
+                    <th>
+                        Tên
+                    </th>
+                    <th>
+                        Giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Tổng tiền
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="BasketBodyTable">
+                <partial name="_Basket" model="@Model" />
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-4 col-md-4 col-12">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Thông tin thanh toán</h4>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <p>
+                    <b>Họ và tên : </b>
+                    @((await CurrentBuyer.GetInformation(User)).FullName)
+                </p>
+                <p>
+                    <b>Email : </b>
+                    @((await CurrentBuyer.GetInformation(User)).Email)
+                </p>
+                <p>
+                    <b>Số điện thoại : </b>
+                    @((await CurrentBuyer.GetInformation(User)).PhoneNumber)
+                </p>
+                <p>
+                    <b>Địa chỉ : </b>
+                    @((await CurrentBuyer.GetInformation(User)).Address)
+                </p>
+            }
+            <hr />
+            <button id="CheckOut" class="btn btn-primary w-100">Thanh toán</button>
+        </div>
+    </div>
+    </div>

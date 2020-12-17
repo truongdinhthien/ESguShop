@@ -25,4 +25,18 @@ $(document).ready(function () {
             }
         })
     })
+
+    $("#CheckOut").click(function (e) {
+        console.log("Click");
+        $.ajax({
+            type: 'POST',
+            url: '/Basket/CheckOut',
+            success: function (data) {
+                alert(data);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            },
+        })
+    })
 });

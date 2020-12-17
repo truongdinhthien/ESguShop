@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMVCUI.Service;
+using WebMVCUI.Service.Interfaces;
 
 namespace WebMVCUI
 {
@@ -43,6 +45,8 @@ namespace WebMVCUI
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Identity/Account/Login";
             });
+
+            services.AddScoped<ICurrentBuyerService, CurrentBuyerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
