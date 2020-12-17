@@ -1,11 +1,15 @@
 ﻿using BUS.Catalogs.Interfaces;
 using BUS.Customers.Interface;
+using BUS.Orders.Interfaces;
+using Core.Entities;
+using Core.Enumerations;
 using DAL.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMVCUI.Helper;
@@ -18,13 +22,19 @@ namespace WebMVCUI.Controllers
     {
         private readonly IProductService _productService;
         private readonly IComboService _comboService;
+        private readonly IOrderService _orderService;
         private ICurrentBuyerService _currentBuyerService;
 
-        public BasketController(IProductService productService, IComboService comboService, ICurrentBuyerService currentBuyerService)
+        public BasketController(
+            IProductService productService,
+            IComboService comboService,
+            IOrderService orderService,
+            ICurrentBuyerService currentBuyerService)
         {
             _productService = productService;
             _comboService = comboService;
             _currentBuyerService = currentBuyerService;
+            _orderService = orderService;
         }
 
         public IActionResult Index()
@@ -81,8 +91,14 @@ namespace WebMVCUI.Controllers
         }
         [Route("/Basket/CheckOut")]
         [HttpPost]
-        public async Task<IActionResult> CheckOutAsync()
+        public async Task<IActionResult> CheckOutAsync(
+            [Required]
+            string deliveryAddress,
+            [Required]
+            DateTime deliveryDateTime
+        )
         {
+
             var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
             var currentBasketItemList = currentBasket?.BasketItems?.ToList();
             if(currentBasketItemList == null) return BadRequest("Giỏ hàng trống");
@@ -90,8 +106,29 @@ namespace WebMVCUI.Controllers
             var buyer = await _currentBuyerService.GetInformation(User);
             if (buyer == null) return BadRequest("Bạn cần đăng nhập để có thể thanh toán");
 
+            if (!ModelState.IsValid) return BadRequest("Thông tin không được bỏ trống");
 
-            return Ok();
+            var order = await _orderService.AddAsync(new Order
+            {
+                Status = OrderStatus.New,
+                DeliveryDate = deliveryDateTime,
+                DeliveryAddress = deliveryAddress,
+                CustomerId = buyer.Id,
+                TotalPrice = currentBasket.TotalPrice,
+                OrderDetails = currentBasket.BasketItems.Select(ele => new OrderDetail
+                {
+                    ItemId = ele.ItemId,
+                    Price = ele.Price,
+                    Quantity = ele.Amount
+                }).ToList(),
+            });
+
+            if (order != null)
+            {
+                HttpContext.Session?.SetObjectAsJson("basket", null);
+                return PartialView("_Basket", null);
+            }
+            return BadRequest("Something not right right");
         }
 
         private async Task<BasketItem> MappingToBasketItem(string id, int amount)

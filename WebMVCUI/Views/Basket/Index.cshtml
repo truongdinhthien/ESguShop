@@ -54,10 +54,18 @@
                     <b>Số điện thoại : </b>
                     @((await CurrentBuyer.GetInformation(User)).PhoneNumber)
                 </p>
-                <p>
-                    <b>Địa chỉ : </b>
-                    @((await CurrentBuyer.GetInformation(User)).Address)
-                </p>
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Địa chỉ</span>
+                    </div>
+                    <input id="DeliveryAddress" value="@((await CurrentBuyer.GetInformation(User)).Address)" type="text" class="form-control">
+                </div>
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Ngày giao</span>
+                    </div>
+                    <input id="deliveryDateTime" type="datetime-local" class="form-control">
+                </div>
             }
             <hr />
             <button id="CheckOut" class="btn btn-primary w-100">Thanh toán</button>

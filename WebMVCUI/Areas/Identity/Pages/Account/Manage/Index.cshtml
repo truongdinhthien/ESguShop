@@ -31,5 +31,134 @@
     <div class="col-10">
         @Model.Customer.Address
     </div>
+    <div class="col">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Mã hóa đơn
+                    </th>
+                    <th>
+                        Ngày mua
+                    </th>
+                    <th>
+                        Ngày giao dự kiến
+                    </th>
+                    <th>
+                        Địa chỉ giao
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th>
+                        Tổng tiền
+                    </th>
+                    <th>
+                        Thao tác
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="BasketBodyTable">
+                @if (Model.Customer.Orders == null)
+                {
+                    <tr>
+                        <td colspan="5">
+                            <p style="text-align:center; margin: 0;font-weight:600">Chưa có đơn hàng nào</p>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model.Customer.Orders)
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                            </td>
+                            <td>
+                                @item.DeliveryDate
+                            </td>
+                            <td>
+                                @item.DeliveryAddress
+                            </td>
+                            <td>
+                                @item.TypeName
+                            </td>
+                            <td>
+                                @item.TotalPrice
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_@item.Id">
+                                    Xem chi tiết
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal_@item.Id" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Thông tin chi tiết hóa đơn</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Mã mặt hàng
+                                                            </th>
+                                                            <th>
+                                                                Đơn Giá
+                                                            </th>
+                                                            <th>
+                                                                Số lượng
+                                                            </th>
+                                                            <th>
+                                                                TGiá
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var orderDetailItem in item.OrderDetails)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @orderDetailItem.ItemId
+                                                                </td>
+                                                                <td>
+                                                                    @orderDetailItem.Price
+                                                                </td>
+                                                                <td>
+                                                                    @orderDetailItem.Quantity
+                                                                </td>
+                                                                <td>
+                                                                    @{
+                                                                        var total = orderDetailItem.Price * orderDetailItem.Quantity;
+                                                                        @total
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 

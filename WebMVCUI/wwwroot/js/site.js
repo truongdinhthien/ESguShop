@@ -11,6 +11,7 @@ $(document).ready(function () {
             url: '/Basket/AddToCart',
             data: form.serialize(),
             success: function (data) {
+                alert("Thêm giỏ hàng thành công");
                 $("#AmountItemInBasket").text(`(${data.totalAmount})`);
             }
         })
@@ -27,12 +28,18 @@ $(document).ready(function () {
     })
 
     $("#CheckOut").click(function (e) {
-        console.log("Click");
+        var deliveryAddress = $("#DeliveryAddress").val();
+        var deliveryDateTime = $("#deliveryDateTime").val();
         $.ajax({
             type: 'POST',
             url: '/Basket/CheckOut',
+            data: {
+                deliveryAddress: deliveryAddress,
+                deliveryDateTime: deliveryDateTime,
+            },
             success: function (data) {
-                alert(data);
+                alert("Thêm hóa đơn thành công");
+                $("#BasketBodyTable").html(data);
             },
             error: function (data) {
                 alert(data.responseText);

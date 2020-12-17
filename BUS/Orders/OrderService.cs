@@ -22,5 +22,10 @@ namespace BUS.Orders
         {
             return await _orderRepository.AddAsync(order);
         }
+
+        public async Task<IEnumerable<Order>> GetOrdersByCustomer(int id)
+        {
+            return await _orderRepository.ListAsync(o => o.CustomerId == id);
+        }
     }
 }
