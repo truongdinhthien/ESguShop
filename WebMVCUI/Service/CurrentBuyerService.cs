@@ -37,7 +37,7 @@ namespace WebMVCUI.Service
                 Address = customer.Address,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Orders = customer.Orders,
+                Orders = customer.Orders ?? null,
             };
         }
     }
