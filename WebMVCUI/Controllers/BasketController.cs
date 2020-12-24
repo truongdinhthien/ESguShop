@@ -119,7 +119,8 @@ namespace WebMVCUI.Controllers
                 {
                     ItemId = ele.ItemId,
                     Price = ele.Price,
-                    Quantity = ele.Amount
+                    Quantity = ele.Amount,
+                    IsCombo = ele.IsCombo,
                 }).ToList(),
             });
 
