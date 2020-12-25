@@ -16,16 +16,19 @@ namespace BUS.Orders
         private readonly IAsyncRepository<Combo> _comboRepository;
         private readonly IAsyncRepository<Product> _productRepository;
         private readonly IAsyncRepository<Storage> _storageRepository;
+        private readonly IAsyncRepository<ComboDetail> _comboDetailRepository;
 
         public OrderService(IAsyncRepository<Order> orderRepository, 
             IAsyncRepository<Combo> comboRepository,
             IAsyncRepository<Product> productRepository,
-            IAsyncRepository<Storage> storageRepository)
+            IAsyncRepository<Storage> storageRepository,
+            IAsyncRepository<ComboDetail> comboDetailRepository)
         {
             _orderRepository = orderRepository;
             _comboRepository = comboRepository;
             _productRepository = productRepository;
             _storageRepository = storageRepository;
+            _comboDetailRepository = comboDetailRepository;
         }
 
         public async Task<Order> AddAsync(Order order)
@@ -35,7 +38,7 @@ namespace BUS.Orders
             if (orderAdded == null) return null;
             else
             {
-                var stockExchanges = this.GetStockExchangesFromOrder(orderAdded);
+                await GetStockExchangesFromOrder(orderAdded);
                 return orderAdded;
             }
         }
@@ -48,8 +51,53 @@ namespace BUS.Orders
                 Quantity = od.Quantity,
                 IsCombo = od.IsCombo,
             }).ToList();
+            var listProduct = await _productRepository.ListAsync();
+            foreach (var item in stockExchanges)
+            {
+                if(item.IsCombo == true)
+                {
+                    var listComboDetail = await _comboDetailRepository.ListAsync();
+                    var selectedComboDetails = listComboDetail.FindAll(d => item.ItemId == d.ComboId);
+                    
+                    foreach (var p in listProduct)
+                    {
+                        var selectedProduct = selectedComboDetails.Find(d => d.ProductId == p.Id);
+                        
+                        if (selectedProduct != null)
+                        {
+                            var stockProduct = new StockExchange
+                            {
+                                ItemId = selectedProduct.ProductId,
+                                Quantity = selectedProduct.Quantity,
+                                IsCombo = true
+                            };
 
-            //foreach(var item in )
+                            await updateStock(p,stockProduct);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var p in listProduct)
+                    {
+                        await updateStock(p,item);
+                    }
+                }
+            }
+        }
+        private async Task updateStock(Product pInStock, StockExchange oDetail)
+        {
+            if (oDetail.ItemId == pInStock.Id)
+            {
+                pInStock.Quantity -= oDetail.Quantity;
+                if (pInStock.Quantity >= 0)
+                    await _productRepository.UpdateAsync(pInStock);
+                else
+                {
+                    //todo: show message and remove created order + oderdetails 
+                    //when there is not enough product in stock
+                }
+            }
         }
 
         public async Task<IEnumerable<Order>> GetOrdersByCustomer(int id)
