@@ -13,6 +13,9 @@ $(document).ready(function () {
             success: function (data) {
                 alert("Thêm giỏ hàng thành công");
                 $("#AmountItemInBasket").text(`(${data.totalAmount})`);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Not enough in stock');
             }
         })
     })

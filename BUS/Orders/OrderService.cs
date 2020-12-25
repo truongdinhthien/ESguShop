@@ -92,11 +92,11 @@ namespace BUS.Orders
                 pInStock.Quantity -= oDetail.Quantity;
                 if (pInStock.Quantity >= 0)
                     await _productRepository.UpdateAsync(pInStock);
-                else
-                {
-                    //todo: show message and remove created order + oderdetails 
-                    //when there is not enough product in stock
-                }
+                //else
+                //{
+                //    //todo: show message and remove created order + oderdetails 
+                //    //when there is not enough product in stock
+                //}
             }
         }
 

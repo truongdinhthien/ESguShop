@@ -60,20 +60,39 @@ namespace WebMVCUI.Controllers
                     HttpContext.Session?.SetObjectAsJson("basket", newBasket);
                     return Ok(newBasket);
                 }
-                else throw new Exception("Not found id");
+                return StatusCode(500, "Not enough in stock");
             }    
             else
             {
                 var itemFound = currentBasket.BasketItems.Where(c => c.ItemId == id).SingleOrDefault();
+                
                 if(itemFound == null)
                 {
                     var newCartItem = await this.MappingToBasketItem(id, amount);
-                    currentBasketItemList.Add(newCartItem);
+                    if (newCartItem == null)
+                        return StatusCode(500, "Not enough in stock");
 
+                    currentBasketItemList.Add(newCartItem);
                     currentBasket.BasketItems = currentBasketItemList;
                 }    
                 else
                 {
+                    var currentItem = currentBasket.BasketItems.Where(item => item.ItemId == id).ToList().ElementAt(0);
+                    var p = await _productService.GetByIdAsync(id);
+                    // If found => its a product
+                    if(p != null) {
+                        if (p.Quantity < amount + await GetCurrentProductAmountInOrder(id))
+                            return StatusCode(500, "Not enough in stock");
+                    }
+
+                    // If not => its a combo
+                    else
+                    {
+                        var combo = await _comboService.GetByIdAsync(id);
+                        var avail = await GetComboAvailability(id,amount);
+                        if(!avail)
+                            return StatusCode(500, "Not enough in stock");
+                    }
                     itemFound.Amount += amount;
                 }
                 HttpContext.Session?.SetObjectAsJson("basket", currentBasket);
@@ -134,9 +153,30 @@ namespace WebMVCUI.Controllers
 
         private async Task<BasketItem> MappingToBasketItem(string id, int amount)
         {
+            BasketItem currentItem;
+            List<BasketItem> currentItemInBasket;
+            var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
+            if (currentBasket == null)
+                currentItemInBasket = null;
+            else
+                currentItemInBasket = currentBasket.BasketItems.Where(item => item.ItemId == id).ToList();
+
+            if (currentItemInBasket != null && currentItemInBasket.Count() > 0)
+            {
+                currentItem = currentItemInBasket.ElementAt(0);
+            }
+            else
+            {
+                currentItem = new BasketItem();
+                currentItem.Amount = 0;
+            }
+
             var product = await _productService.GetByIdAsync(id);
             if (product != null)
-                return new BasketItem
+                if ( product.Quantity < amount + await GetCurrentProductAmountInOrder(id))
+                    return null;
+                else
+                    return new BasketItem
                 {
                     ItemId = product.Id,
                     IsCombo = false,
@@ -148,7 +188,17 @@ namespace WebMVCUI.Controllers
             else
             {
                 var combo = await _comboService.GetByIdAsync(id);
+
                 if (combo != null)
+                {
+                    foreach (ComboDetail d in combo.ComboDetails.ToList())
+                    {
+                        var avail = await GetComboAvailability(d.ComboId,amount);
+                        if (!avail)
+                        {
+                            return null;
+                        }
+                    }
                     return new BasketItem
                     {
                         ItemId = combo.Id,
@@ -158,8 +208,69 @@ namespace WebMVCUI.Controllers
                         Name = combo.Name,
                         TotalPrice = combo.Price * amount
                     };
+                }
                 else return null;
             }
+        }
+
+        private async Task<int> GetCurrentProductAmountInOrder(string id)
+        {
+            var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
+            int count = 0;
+            
+            if(currentBasket != null)
+            {
+                var currentItemList = currentBasket.BasketItems.Where(item => item.ItemId == id).ToList();
+                // If its a product
+                if (currentItemList != null && currentItemList.Count > 0)
+                {
+                    var currentItem = currentItemList.ElementAt(0);
+                    count += currentItem.Amount;
+                }
+                // Check all combos in in basket if they included this product
+                var basketCombos = currentBasket.BasketItems.Where(c => c.IsCombo).ToList();
+                foreach (BasketItem c in basketCombos)
+                {
+                    var currentCombo = await _comboService.GetByIdAsync(c.ItemId);
+                    var currentProductInCombo = currentCombo.ComboDetails.Where(d => d.ProductId == id).ToList().ElementAt(0);
+                    count += c.Amount * currentProductInCombo.Quantity;
+                }
+            }
+            return count;
+        }
+
+        private async Task<bool> GetComboAvailability(string id, int amount)
+        {
+            //var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
+            //if (currentBasket != null)
+            //{
+                //var currentComboInOrder = currentBasket.BasketItems.Where(item => item.ItemId == id).ToList();
+                //if (currentComboInOrder != null && currentComboInOrder.Count > 0)
+                //{
+                    //var currentItem = currentComboInOrder.ElementAt(0);
+                    //if (currentItem.IsCombo)
+                    //{
+                        // Get all product in current combo
+                        var currentCombo = await _comboService.GetByIdAsync(id);
+                        var productsInCurrentCombo = currentCombo.ComboDetails.ToList();
+                        foreach (ComboDetail c in productsInCurrentCombo)
+                        {
+                            var productInStock = await _productService.GetByIdAsync(c.ProductId);
+                            var stockAmount = productInStock.Quantity;
+                            if (await GetCurrentProductAmountInOrder(c.ProductId) + c.Quantity * amount > stockAmount)
+                            {
+                                return false;
+                            }
+                        }
+                    //}
+                    //else
+                    //    return false;
+                //}
+                
+            //}
+            //else
+            //    return false;
+            return true;
         }
     }
 }
