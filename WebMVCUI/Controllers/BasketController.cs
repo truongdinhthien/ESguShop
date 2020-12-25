@@ -1,6 +1,7 @@
 ﻿using BUS.Catalogs.Interfaces;
 using BUS.Customers.Interface;
 using BUS.Orders.Interfaces;
+using Core.Common.Interfaces;
 using Core.Entities;
 using Core.Enumerations;
 using DAL.Identity;
@@ -24,17 +25,20 @@ namespace WebMVCUI.Controllers
         private readonly IComboService _comboService;
         private readonly IOrderService _orderService;
         private ICurrentBuyerService _currentBuyerService;
+        private readonly IAsyncRepository<Storage> _storageRepository;
 
         public BasketController(
             IProductService productService,
             IComboService comboService,
             IOrderService orderService,
-            ICurrentBuyerService currentBuyerService)
+            ICurrentBuyerService currentBuyerService,
+            IAsyncRepository<Storage> storageRepository)
         {
             _productService = productService;
             _comboService = comboService;
             _currentBuyerService = currentBuyerService;
             _orderService = orderService;
+            _storageRepository = storageRepository;
         }
 
         public IActionResult Index()
@@ -145,10 +149,53 @@ namespace WebMVCUI.Controllers
 
             if (order != null)
             {
+                List<Product> listProduct = await GetAllDistincProducts();
+                foreach(Product p in listProduct)
+                {
+                    var updateStorage = await _storageRepository.AddAsync(
+                        new Storage
+                        {
+                            ProductId = p.Id,
+                            Quantity = p.Quantity,
+                            DateChange = DateTime.Now
+                        });
+                }
+
                 HttpContext.Session?.SetObjectAsJson("basket", null);
                 return PartialView("_Basket", null);
             }
             return BadRequest("Something not right right");
+        }
+
+        private async Task<List<Product>> GetAllDistincProducts()
+        {
+            List<Product> list = new List<Product>();
+            var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
+            if(currentBasket != null)
+            {
+                var itemList = currentBasket.BasketItems.ToList();
+                foreach(BasketItem item in itemList)
+                {
+                    if (!item.IsCombo)
+                    {
+                        var product = await _productService.GetByIdAsync(item.ItemId);
+                        if (!list.Contains(product))
+                            list.Add(product);
+                    }
+                    else
+                    {
+                        var combo = await _comboService.GetByIdAsync(item.ItemId);
+                        var comboDetails = combo.ComboDetails.ToList();
+                        foreach(ComboDetail d in comboDetails)
+                        {
+                            var product = await _productService.GetByIdAsync(d.ProductId);
+                            if (!list.Contains(product))
+                                list.Add(product);
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         private async Task<BasketItem> MappingToBasketItem(string id, int amount)
@@ -241,15 +288,6 @@ namespace WebMVCUI.Controllers
 
         private async Task<bool> GetComboAvailability(string id, int amount)
         {
-            //var currentBasket = HttpContext.Session?.GetObjectFromJson<BasketViewModel>("basket");
-            //if (currentBasket != null)
-            //{
-                //var currentComboInOrder = currentBasket.BasketItems.Where(item => item.ItemId == id).ToList();
-                //if (currentComboInOrder != null && currentComboInOrder.Count > 0)
-                //{
-                    //var currentItem = currentComboInOrder.ElementAt(0);
-                    //if (currentItem.IsCombo)
-                    //{
                         // Get all product in current combo
                         var currentCombo = await _comboService.GetByIdAsync(id);
                         var productsInCurrentCombo = currentCombo.ComboDetails.ToList();
@@ -262,14 +300,6 @@ namespace WebMVCUI.Controllers
                                 return false;
                             }
                         }
-                    //}
-                    //else
-                    //    return false;
-                //}
-                
-            //}
-            //else
-            //    return false;
             return true;
         }
     }
