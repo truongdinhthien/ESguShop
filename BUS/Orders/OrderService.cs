@@ -68,7 +68,7 @@ namespace BUS.Orders
                             var stockProduct = new StockExchange
                             {
                                 ItemId = selectedProduct.ProductId,
-                                Quantity = selectedProduct.Quantity,
+                                Quantity = selectedProduct.Quantity * item.Quantity,
                                 IsCombo = true
                             };
 
