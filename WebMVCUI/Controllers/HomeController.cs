@@ -6,21 +6,36 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMVCUI.Models;
+using BUS.Catalogs.Interfaces;
+using Core.Entities;
 
 namespace WebMVCUI.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductService _productService;
+        private readonly IComboService _comboService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+                              IProductService productService,
+                              IComboService comboService)
         {
             _logger = logger;
+            _comboService = comboService;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<Product> products = await _productService.ListAsync();
+            IEnumerable<Combo> combos = await _comboService.ListAsync();
+            HomeViewModel homeViewModel = new HomeViewModel
+            {
+                Products = products.ToList(),
+                Combos = combos.ToList()
+            };
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()
