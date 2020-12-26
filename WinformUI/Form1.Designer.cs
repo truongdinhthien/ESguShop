@@ -83,19 +83,15 @@ namespace WinformUI
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dgvOrderItem = new System.Windows.Forms.DataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btnOrderCancel = new System.Windows.Forms.Button();
-            this.btnOrderSave = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.txOrderCustomer = new System.Windows.Forms.TextBox();
             this.txOrderDeliveryDate = new System.Windows.Forms.TextBox();
             this.txOrderDeliveryAddress = new System.Windows.Forms.TextBox();
             this.txOrderPrice = new System.Windows.Forms.TextBox();
-            this.cbOrderStatus = new System.Windows.Forms.ComboBox();
             this.dgvOrder = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -722,8 +718,6 @@ namespace WinformUI
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.btnOrderCancel);
-            this.groupBox5.Controls.Add(this.btnOrderSave);
             this.groupBox5.Controls.Add(this.tableLayoutPanel4);
             this.groupBox5.Location = new System.Drawing.Point(483, 4);
             this.groupBox5.Name = "groupBox5";
@@ -731,24 +725,6 @@ namespace WinformUI
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Thông tin đơn hàng";
-            // 
-            // btnOrderCancel
-            // 
-            this.btnOrderCancel.Location = new System.Drawing.Point(217, 191);
-            this.btnOrderCancel.Name = "btnOrderCancel";
-            this.btnOrderCancel.Size = new System.Drawing.Size(94, 29);
-            this.btnOrderCancel.TabIndex = 2;
-            this.btnOrderCancel.Text = "Hủy";
-            this.btnOrderCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnOrderSave
-            // 
-            this.btnOrderSave.Location = new System.Drawing.Point(317, 191);
-            this.btnOrderSave.Name = "btnOrderSave";
-            this.btnOrderSave.Size = new System.Drawing.Size(94, 29);
-            this.btnOrderSave.TabIndex = 1;
-            this.btnOrderSave.Text = "Lưu";
-            this.btnOrderSave.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel4
             // 
@@ -759,12 +735,10 @@ namespace WinformUI
             this.tableLayoutPanel4.Controls.Add(this.label14, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.label15, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.label16, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.label17, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.txOrderCustomer, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.txOrderDeliveryDate, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.txOrderDeliveryAddress, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.txOrderPrice, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.cbOrderStatus, 1, 4);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(7, 27);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 5;
@@ -812,15 +786,6 @@ namespace WinformUI
             this.label16.TabIndex = 3;
             this.label16.Text = "Giá";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 116);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 20);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Trạng thái";
-            // 
             // txOrderCustomer
             // 
             this.txOrderCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -860,15 +825,6 @@ namespace WinformUI
             this.txOrderPrice.Size = new System.Drawing.Size(297, 27);
             this.txOrderPrice.TabIndex = 8;
             this.txOrderPrice.Text = "1.500.000";
-            // 
-            // cbOrderStatus
-            // 
-            this.cbOrderStatus.FormattingEnabled = true;
-            this.cbOrderStatus.Location = new System.Drawing.Point(103, 119);
-            this.cbOrderStatus.Name = "cbOrderStatus";
-            this.cbOrderStatus.Size = new System.Drawing.Size(151, 28);
-            this.cbOrderStatus.TabIndex = 9;
-            this.cbOrderStatus.Text = "Đang giao";
             // 
             // dgvOrder
             // 
@@ -988,19 +944,15 @@ namespace WinformUI
         private System.Windows.Forms.DataGridView dgvOrder;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.DataGridView dgvOrderItem;
-        private System.Windows.Forms.Button btnOrderCancel;
-        private System.Windows.Forms.Button btnOrderSave;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txOrderCustomer;
         private System.Windows.Forms.TextBox txOrderDeliveryDate;
         private System.Windows.Forms.TextBox txOrderDeliveryAddress;
         private System.Windows.Forms.TextBox txOrderPrice;
-        private System.Windows.Forms.ComboBox cbOrderStatus;
         private System.Windows.Forms.TextBox ComboId;
         private System.Windows.Forms.TextBox txComboId;
         private System.Windows.Forms.Button btnComboDetailAdd;

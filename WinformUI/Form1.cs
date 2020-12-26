@@ -691,6 +691,11 @@ namespace WinformUI
             var rowIndex = dgvOrder.SelectedRows[0].Index;
             var row = dgvOrder.Rows[rowIndex];
 
+            txOrderCustomer.Text = row.Cells["CustomerId"].Value?.ToString();
+            txOrderDeliveryAddress.Text = row.Cells["DeliveryAddress"].Value?.ToString();
+            txOrderDeliveryDate.Text = row.Cells["DeliveryDate"].Value?.ToString();
+            txOrderPrice.Text = row.Cells["TotalPrice"].Value?.ToString();
+
             // get id
             var id = int.Parse(row.Cells["Id"].Value?.ToString());
 
