@@ -101,7 +101,7 @@ namespace WinformUI
             dgvCombo.Columns.Add("Name", "Tên");
             dgvCombo.Columns.Add("Price", "Giá");
 
-            dgvProduct.Columns["Price"].DefaultCellStyle.Format = "N0";
+            dgvCombo.Columns["Price"].DefaultCellStyle.Format = "N0";
 
             foreach (DataGridViewColumn column in dgvCombo.Columns)
             {
@@ -134,7 +134,7 @@ namespace WinformUI
             dgvProductCountHistory.Columns.Add("Quantity", "số lượng");
             dgvProductCountHistory.Columns.Add("DateChange", "Ngày thay đổi");
 
-            dgvProductCountHistory.Columns["DateChange"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvProductCountHistory.Columns["DateChange"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
 
             foreach (DataGridViewColumn column in dgvProductCountHistory.Columns)
             {
@@ -350,8 +350,13 @@ namespace WinformUI
                 var description = txProductDescription.Text;
                 var type = (ProductType)cbProductType.SelectedItem;
 
+                Random generator = new Random();
+                int r = generator.Next(100000, 1000000);
+                var id = "THIETBI-" + r;
+
                 var product = new Product
                 {
+                    Id = id,
                     Name = name,
                     Producer = producer,
                     Price = decimal.Parse(price),
@@ -361,21 +366,29 @@ namespace WinformUI
                 };
 
                 await _productService.AddAsync(product);
+
+                // luu so luong khi tao 
+                var storage = new Storage
+                {
+                    ProductId = id,
+                    Quantity = int.Parse(quantity),
+                    DateChange = DateTime.Now
+                };
+
+                await _productService.AddHistoryAsync(storage);
+
                 MessageBox.Show("Thêm thành công");
                 SetProductMode(OperationType.View);
                 await LoadProductDataGridViewAsync();
             }
             if (ProductMode == OperationType.Edit && validateProduct())
             {
-
-
                 var name = txProductName.Text;
                 var producer = txProductProducer.Text;
                 var price = txProductPrice.Text;
                 var quantity = txProductCurrentCount.Text;
                 var description = txProductDescription.Text;
                 var type = (ProductType)cbProductType.SelectedItem;
-
 
                 var productId = txProductId.Text;
                 var product = await _productService.GetByIdAsync(productId);
@@ -386,7 +399,7 @@ namespace WinformUI
                     {
                         ProductId = productId,
                         Quantity = int.Parse(quantity),
-                        DateChange = DateTime.Today
+                        DateChange = DateTime.Now
                     };
 
                     await _productService.AddHistoryAsync(storage);
@@ -587,6 +600,9 @@ namespace WinformUI
         private async void btnComboDetailAdd_Click(object sender, EventArgs e)
         {
             var productId = (string)cbComboDetailProducts.SelectedValue;
+
+            if (productId == "") return;
+
             var quantity = txComboDetailProductCount.Text;
             if (!int.TryParse(quantity, out int tmpQuantity) || tmpQuantity < 0)
             {
@@ -638,10 +654,10 @@ namespace WinformUI
 
             dgvOrder.ShowLoading(false);
 
-            dgvOrder.Columns.Add("CustomerId", "Mã");
-            dgvOrder.Columns.Add("TotalPrice", "Tên");
-            dgvOrder.Columns.Add("DeliveryAddress", "Giá");
-            dgvOrder.Columns.Add("DeliveryDate", "số lượng");
+            dgvOrder.Columns.Add("CustomerId", "Mã khách hàng");
+            dgvOrder.Columns.Add("TotalPrice", "Giá");
+            dgvOrder.Columns.Add("DeliveryAddress", "Địa chỉ");
+            dgvOrder.Columns.Add("DeliveryDate", "Ngày giao");
 
 
             dgvOrder.Columns["TotalPrice"].DefaultCellStyle.Format = "N0";

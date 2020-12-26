@@ -32,9 +32,6 @@ namespace BUS.Catalogs
 
         public async Task AddAsync(Product product)
         {
-            Random generator = new Random();
-            int r = generator.Next(100000, 1000000);
-            product.Id = "THIETBI-" + r;
             await _productRepository.AddAsync(product);
         }
 

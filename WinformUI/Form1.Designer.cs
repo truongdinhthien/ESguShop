@@ -823,6 +823,7 @@ namespace WinformUI
             // txOrderCustomer
             // 
             this.txOrderCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOrderCustomer.Enabled = false;
             this.txOrderCustomer.Location = new System.Drawing.Point(103, 3);
             this.txOrderCustomer.Name = "txOrderCustomer";
             this.txOrderCustomer.Size = new System.Drawing.Size(297, 27);
@@ -832,6 +833,7 @@ namespace WinformUI
             // txOrderDeliveryDate
             // 
             this.txOrderDeliveryDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOrderDeliveryDate.Enabled = false;
             this.txOrderDeliveryDate.Location = new System.Drawing.Point(103, 32);
             this.txOrderDeliveryDate.Name = "txOrderDeliveryDate";
             this.txOrderDeliveryDate.Size = new System.Drawing.Size(297, 27);
@@ -841,6 +843,7 @@ namespace WinformUI
             // txOrderDeliveryAddress
             // 
             this.txOrderDeliveryAddress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOrderDeliveryAddress.Enabled = false;
             this.txOrderDeliveryAddress.Location = new System.Drawing.Point(103, 61);
             this.txOrderDeliveryAddress.Name = "txOrderDeliveryAddress";
             this.txOrderDeliveryAddress.Size = new System.Drawing.Size(297, 27);
@@ -850,6 +853,7 @@ namespace WinformUI
             // txOrderPrice
             // 
             this.txOrderPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txOrderPrice.Enabled = false;
             this.txOrderPrice.Location = new System.Drawing.Point(103, 90);
             this.txOrderPrice.Name = "txOrderPrice";
             this.txOrderPrice.Size = new System.Drawing.Size(297, 27);
