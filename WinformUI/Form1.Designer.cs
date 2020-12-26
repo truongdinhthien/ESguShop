@@ -512,6 +512,7 @@ namespace WinformUI
             this.txComboDetailProductCount.Name = "txComboDetailProductCount";
             this.txComboDetailProductCount.Size = new System.Drawing.Size(263, 27);
             this.txComboDetailProductCount.TabIndex = 3;
+            this.txComboDetailProductCount.Text = "1";
             // 
             // dgvComboDetail
             // 

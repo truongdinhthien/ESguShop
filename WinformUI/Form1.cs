@@ -603,10 +603,19 @@ namespace WinformUI
 
             if (productId == "") return;
 
+            var product = await _productService.GetByIdAsync(productId);
+            var productQuantity = product.Quantity;
+
             var quantity = txComboDetailProductCount.Text;
-            if (!int.TryParse(quantity, out int tmpQuantity) || tmpQuantity < 0)
+            if (!int.TryParse(quantity, out int tmpQuantity) || tmpQuantity <= 0)
             {
                 MessageBox.Show("Số lượng không hợp lệ");
+                return;
+            }
+
+            if(tmpQuantity > productQuantity)
+            {
+                MessageBox.Show("Số lượng sản phẩm không đủ");
                 return;
             }
 
