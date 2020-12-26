@@ -654,6 +654,7 @@ namespace WinformUI
             {
                 data.Add(new
                 {
+                    order.Id,
                     order.TotalPrice,
                     order.DeliveryAddress,
                     order.CustomerId,
@@ -663,6 +664,7 @@ namespace WinformUI
 
             dgvOrder.ShowLoading(false);
 
+            dgvOrder.Columns.Add("Id", "Mã");
             dgvOrder.Columns.Add("CustomerId", "Mã khách hàng");
             dgvOrder.Columns.Add("TotalPrice", "Giá");
             dgvOrder.Columns.Add("DeliveryAddress", "Địa chỉ");
@@ -677,6 +679,56 @@ namespace WinformUI
             }
 
             dgvOrder.DataSource = data;
+        }
+
+        private async void dgvOrder_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvOrder.SelectedRows.Count == 0 || dgvOrder.SelectedRows[0].Index < 0)
+                return;
+
+            dgvOrderItem.ShowLoading(true);
+
+            var rowIndex = dgvOrder.SelectedRows[0].Index;
+            var row = dgvOrder.Rows[rowIndex];
+
+            // get id
+            var id = int.Parse(row.Cells["Id"].Value?.ToString());
+
+            // get order by id
+            var order = await _orderService.GetOrderById(id);
+
+            // get order detail by order
+            var orderDetail = await _orderService.GetOrderDetailAsync(order);
+            
+            // show to datagridview
+            List<object> data = new List<object>();
+            foreach (var od in orderDetail)
+            {
+                data.Add(new
+                {
+                    od.ItemId,
+                    od.IsCombo,
+                    od.Quantity,
+                    od.Price
+                });
+            }
+
+            dgvOrderItem.ShowLoading(false);
+
+            dgvOrderItem.Columns.Add("ItemId", "Mã hàng hóa");
+            dgvOrderItem.Columns.Add("IsCombo", "Combo");
+            dgvOrderItem.Columns.Add("Quantity", "Số lượng");
+            dgvOrderItem.Columns.Add("Price", "Đơn giá");
+
+
+            dgvOrderItem.Columns["Price"].DefaultCellStyle.Format = "N0";
+
+            foreach (DataGridViewColumn column in dgvOrderItem.Columns)
+            {
+                column.DataPropertyName = column.Name;
+            }
+
+            dgvOrderItem.DataSource = data;
         }
     }
 }

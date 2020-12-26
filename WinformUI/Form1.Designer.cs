@@ -883,6 +883,7 @@ namespace WinformUI
             this.dgvOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrder.Size = new System.Drawing.Size(467, 495);
             this.dgvOrder.TabIndex = 0;
+            this.dgvOrder.SelectionChanged += new System.EventHandler(this.dgvOrder_SelectionChanged);
             // 
             // button3
             // 

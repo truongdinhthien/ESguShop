@@ -31,6 +31,12 @@ namespace BUS.Orders
             _comboDetailRepository = comboDetailRepository;
         }
 
+        public async Task<List<OrderDetail>> GetOrderDetailAsync(Order order)
+        {
+            var orderDetail = order.OrderDetails.Where(od => od.OrderId == order.Id).ToList();
+            return orderDetail;
+        }
+
         public async Task<Order> AddAsync(Order order)
         {
             //Should use transaction but so lazy :(
@@ -103,6 +109,11 @@ namespace BUS.Orders
         public async Task<IEnumerable<Order>> GetOrdersByCustomer(int id)
         {
             return await _orderRepository.ListAsync(o => o.CustomerId == id);
+        }
+
+        public async Task<Order> GetOrderById(int id)
+        {
+            return await _orderRepository.GetByIdAsync(id);
         }
 
         public async Task<IEnumerable<Order>> GetOrdersAsync()
