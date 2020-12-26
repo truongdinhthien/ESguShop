@@ -18,7 +18,7 @@ namespace BUS.Orders
         private readonly IAsyncRepository<Storage> _storageRepository;
         private readonly IAsyncRepository<ComboDetail> _comboDetailRepository;
 
-        public OrderService(IAsyncRepository<Order> orderRepository, 
+        public OrderService(IAsyncRepository<Order> orderRepository,
             IAsyncRepository<Combo> comboRepository,
             IAsyncRepository<Product> productRepository,
             IAsyncRepository<Storage> storageRepository,
@@ -43,7 +43,7 @@ namespace BUS.Orders
             }
         }
 
-        private async Task GetStockExchangesFromOrder (Order order)
+        private async Task GetStockExchangesFromOrder(Order order)
         {
             var stockExchanges = order.OrderDetails.Select(od => new StockExchange
             {
@@ -54,15 +54,15 @@ namespace BUS.Orders
             var listProduct = await _productRepository.ListAsync();
             foreach (var item in stockExchanges)
             {
-                if(item.IsCombo == true)
+                if (item.IsCombo == true)
                 {
                     var listComboDetail = await _comboDetailRepository.ListAsync();
                     var selectedComboDetails = listComboDetail.FindAll(d => item.ItemId == d.ComboId);
-                    
+
                     foreach (var p in listProduct)
                     {
                         var selectedProduct = selectedComboDetails.Find(d => d.ProductId == p.Id);
-                        
+
                         if (selectedProduct != null)
                         {
                             var stockProduct = new StockExchange
@@ -72,7 +72,7 @@ namespace BUS.Orders
                                 IsCombo = true
                             };
 
-                            await updateStock(p,stockProduct);
+                            await updateStock(p, stockProduct);
                         }
                     }
                 }
@@ -80,7 +80,7 @@ namespace BUS.Orders
                 {
                     foreach (var p in listProduct)
                     {
-                        await updateStock(p,item);
+                        await updateStock(p, item);
                     }
                 }
             }
@@ -103,6 +103,11 @@ namespace BUS.Orders
         public async Task<IEnumerable<Order>> GetOrdersByCustomer(int id)
         {
             return await _orderRepository.ListAsync(o => o.CustomerId == id);
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        {
+            return await _orderRepository.ListAsync();
         }
     }
 }

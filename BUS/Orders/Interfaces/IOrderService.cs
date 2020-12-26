@@ -11,5 +11,6 @@ namespace BUS.Orders.Interfaces
     {
         Task<Order> AddAsync(Order order);
         Task<IEnumerable<Order>> GetOrdersByCustomer(int id);
+        Task<IEnumerable<Order>> GetOrdersAsync();
     }
 }
