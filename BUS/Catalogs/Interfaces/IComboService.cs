@@ -11,5 +11,9 @@ namespace BUS.Catalogs.Interfaces
     {
         Task<IEnumerable<Combo>> ListAsync();
         Task<Combo> GetByIdAsync(string id);
+        Task UpdateAsync(Combo combo);
+        Task AddAsync(Combo combo);
+        Task RemoveProductToComboAsync(string comboId, string productId);
+        Task AddProductToComboAsync(string comboId, string productId, int quantity);
     }
 }

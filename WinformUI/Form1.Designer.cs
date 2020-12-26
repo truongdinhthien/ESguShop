@@ -29,14 +29,17 @@ namespace WinformUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.dgvProduct = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.product = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvProductCountHistory = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnProductCancel = new System.Windows.Forms.Button();
+            this.btnProductSave = new System.Windows.Forms.Button();
             this.btnProductAdd = new System.Windows.Forms.Button();
             this.btnProductEdit = new System.Windows.Forms.Button();
-            this.btnProductDelete = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,12 +54,10 @@ namespace WinformUI
             this.txProductPrice = new System.Windows.Forms.TextBox();
             this.txProductCurrentCount = new System.Windows.Forms.TextBox();
             this.txProductDescription = new System.Windows.Forms.TextBox();
-            this.txProductType = new System.Windows.Forms.TextBox();
-            this.dgvProduct = new System.Windows.Forms.DataGridView();
+            this.cbProductType = new System.Windows.Forms.ComboBox();
             this.combo = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnComboDetailDelete = new System.Windows.Forms.Button();
-            this.btnComboDetailEdit = new System.Windows.Forms.Button();
             this.btnComboDetailAdd = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -65,9 +66,11 @@ namespace WinformUI
             this.txComboDetailProductCount = new System.Windows.Forms.TextBox();
             this.dgvComboDetail = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnComboDelete = new System.Windows.Forms.Button();
-            this.btnComboEdit = new System.Windows.Forms.Button();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnComboCancel = new System.Windows.Forms.Button();
+            this.btnComboSave = new System.Windows.Forms.Button();
             this.btnComboAdd = new System.Windows.Forms.Button();
+            this.btnComboEdit = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -94,18 +97,22 @@ namespace WinformUI
             this.txOrderPrice = new System.Windows.Forms.TextBox();
             this.cbOrderStatus = new System.Windows.Forms.ComboBox();
             this.dgvOrder = new System.Windows.Forms.DataGridView();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.product.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCountHistory)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.combo.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComboDetail)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCombo)).BeginInit();
             this.order.SuspendLayout();
@@ -115,6 +122,23 @@ namespace WinformUI
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrder)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dgvProduct
+            // 
+            this.dgvProduct.AllowUserToAddRows = false;
+            this.dgvProduct.AllowUserToDeleteRows = false;
+            this.dgvProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProduct.Location = new System.Drawing.Point(9, 4);
+            this.dgvProduct.MultiSelect = false;
+            this.dgvProduct.Name = "dgvProduct";
+            this.dgvProduct.ReadOnly = true;
+            this.dgvProduct.RowHeadersVisible = false;
+            this.dgvProduct.RowHeadersWidth = 51;
+            this.dgvProduct.RowTemplate.Height = 29;
+            this.dgvProduct.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProduct.Size = new System.Drawing.Size(447, 495);
+            this.dgvProduct.TabIndex = 0;
+            this.dgvProduct.SelectionChanged += new System.EventHandler(this.dgvProduct_SelectionChanged);
             // 
             // tabControl1
             // 
@@ -127,6 +151,7 @@ namespace WinformUI
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(910, 540);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // product
             // 
@@ -160,16 +185,16 @@ namespace WinformUI
             this.dgvProductCountHistory.Location = new System.Drawing.Point(3, 23);
             this.dgvProductCountHistory.Name = "dgvProductCountHistory";
             this.dgvProductCountHistory.ReadOnly = true;
+            this.dgvProductCountHistory.RowHeadersVisible = false;
             this.dgvProductCountHistory.RowHeadersWidth = 51;
             this.dgvProductCountHistory.RowTemplate.Height = 29;
+            this.dgvProductCountHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductCountHistory.Size = new System.Drawing.Size(431, 246);
             this.dgvProductCountHistory.TabIndex = 2;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnProductAdd);
-            this.groupBox1.Controls.Add(this.btnProductEdit);
-            this.groupBox1.Controls.Add(this.btnProductDelete);
+            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(463, 4);
             this.groupBox1.Name = "groupBox1";
@@ -178,32 +203,60 @@ namespace WinformUI
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnProductCancel);
+            this.flowLayoutPanel1.Controls.Add(this.btnProductSave);
+            this.flowLayoutPanel1.Controls.Add(this.btnProductAdd);
+            this.flowLayoutPanel1.Controls.Add(this.btnProductEdit);
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(7, 180);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(423, 37);
+            this.flowLayoutPanel1.TabIndex = 1;
+            this.flowLayoutPanel1.WrapContents = false;
+            // 
+            // btnProductCancel
+            // 
+            this.btnProductCancel.Location = new System.Drawing.Point(326, 3);
+            this.btnProductCancel.Name = "btnProductCancel";
+            this.btnProductCancel.Size = new System.Drawing.Size(94, 29);
+            this.btnProductCancel.TabIndex = 3;
+            this.btnProductCancel.Text = "Hủy";
+            this.btnProductCancel.UseVisualStyleBackColor = true;
+            this.btnProductCancel.Visible = false;
+            this.btnProductCancel.Click += new System.EventHandler(this.btnProductCancel_Click);
+            // 
+            // btnProductSave
+            // 
+            this.btnProductSave.Location = new System.Drawing.Point(226, 3);
+            this.btnProductSave.Name = "btnProductSave";
+            this.btnProductSave.Size = new System.Drawing.Size(94, 29);
+            this.btnProductSave.TabIndex = 2;
+            this.btnProductSave.Text = "Lưu";
+            this.btnProductSave.UseVisualStyleBackColor = true;
+            this.btnProductSave.Visible = false;
+            this.btnProductSave.Click += new System.EventHandler(this.btnProductSave_Click);
+            // 
             // btnProductAdd
             // 
-            this.btnProductAdd.Location = new System.Drawing.Point(336, 179);
+            this.btnProductAdd.Location = new System.Drawing.Point(126, 3);
             this.btnProductAdd.Name = "btnProductAdd";
             this.btnProductAdd.Size = new System.Drawing.Size(94, 29);
-            this.btnProductAdd.TabIndex = 3;
+            this.btnProductAdd.TabIndex = 4;
             this.btnProductAdd.Text = "Thêm";
             this.btnProductAdd.UseVisualStyleBackColor = true;
+            this.btnProductAdd.Click += new System.EventHandler(this.btnProductAdd_Click);
             // 
             // btnProductEdit
             // 
-            this.btnProductEdit.Location = new System.Drawing.Point(235, 179);
+            this.btnProductEdit.Location = new System.Drawing.Point(26, 3);
             this.btnProductEdit.Name = "btnProductEdit";
             this.btnProductEdit.Size = new System.Drawing.Size(94, 29);
-            this.btnProductEdit.TabIndex = 2;
+            this.btnProductEdit.TabIndex = 5;
             this.btnProductEdit.Text = "Sửa";
             this.btnProductEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnProductDelete
-            // 
-            this.btnProductDelete.Location = new System.Drawing.Point(134, 179);
-            this.btnProductDelete.Name = "btnProductDelete";
-            this.btnProductDelete.Size = new System.Drawing.Size(94, 29);
-            this.btnProductDelete.TabIndex = 1;
-            this.btnProductDelete.Text = "Xóa";
-            this.btnProductDelete.UseVisualStyleBackColor = true;
+            this.btnProductEdit.Click += new System.EventHandler(this.btnProductEdit_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -225,7 +278,7 @@ namespace WinformUI
             this.tableLayoutPanel1.Controls.Add(this.txProductPrice, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txProductCurrentCount, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.txProductDescription, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txProductType, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbProductType, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -302,6 +355,7 @@ namespace WinformUI
             // txProductId
             // 
             this.txProductId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductId.Enabled = false;
             this.txProductId.Location = new System.Drawing.Point(66, 3);
             this.txProductId.Name = "txProductId";
             this.txProductId.Size = new System.Drawing.Size(142, 27);
@@ -310,6 +364,7 @@ namespace WinformUI
             // txProductName
             // 
             this.txProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductName.Enabled = false;
             this.txProductName.Location = new System.Drawing.Point(277, 3);
             this.txProductName.Name = "txProductName";
             this.txProductName.Size = new System.Drawing.Size(143, 27);
@@ -318,6 +373,7 @@ namespace WinformUI
             // txProductProducer
             // 
             this.txProductProducer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductProducer.Enabled = false;
             this.txProductProducer.Location = new System.Drawing.Point(277, 39);
             this.txProductProducer.Name = "txProductProducer";
             this.txProductProducer.Size = new System.Drawing.Size(143, 27);
@@ -326,6 +382,7 @@ namespace WinformUI
             // txProductPrice
             // 
             this.txProductPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductPrice.Enabled = false;
             this.txProductPrice.Location = new System.Drawing.Point(66, 75);
             this.txProductPrice.Name = "txProductPrice";
             this.txProductPrice.Size = new System.Drawing.Size(142, 27);
@@ -334,6 +391,7 @@ namespace WinformUI
             // txProductCurrentCount
             // 
             this.txProductCurrentCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductCurrentCount.Enabled = false;
             this.txProductCurrentCount.Location = new System.Drawing.Point(277, 75);
             this.txProductCurrentCount.Name = "txProductCurrentCount";
             this.txProductCurrentCount.Size = new System.Drawing.Size(143, 27);
@@ -342,31 +400,20 @@ namespace WinformUI
             // txProductDescription
             // 
             this.txProductDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txProductDescription.Enabled = false;
             this.txProductDescription.Location = new System.Drawing.Point(66, 111);
             this.txProductDescription.Name = "txProductDescription";
             this.txProductDescription.Size = new System.Drawing.Size(142, 27);
             this.txProductDescription.TabIndex = 12;
             // 
-            // txProductType
+            // cbProductType
             // 
-            this.txProductType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txProductType.Location = new System.Drawing.Point(66, 39);
-            this.txProductType.Name = "txProductType";
-            this.txProductType.Size = new System.Drawing.Size(142, 27);
-            this.txProductType.TabIndex = 13;
-            // 
-            // dgvProduct
-            // 
-            this.dgvProduct.AllowUserToAddRows = false;
-            this.dgvProduct.AllowUserToDeleteRows = false;
-            this.dgvProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProduct.Location = new System.Drawing.Point(9, 4);
-            this.dgvProduct.Name = "dgvProduct";
-            this.dgvProduct.ReadOnly = true;
-            this.dgvProduct.RowHeadersWidth = 51;
-            this.dgvProduct.RowTemplate.Height = 29;
-            this.dgvProduct.Size = new System.Drawing.Size(447, 495);
-            this.dgvProduct.TabIndex = 0;
+            this.cbProductType.Enabled = false;
+            this.cbProductType.FormattingEnabled = true;
+            this.cbProductType.Location = new System.Drawing.Point(66, 39);
+            this.cbProductType.Name = "cbProductType";
+            this.cbProductType.Size = new System.Drawing.Size(142, 28);
+            this.cbProductType.TabIndex = 13;
             // 
             // combo
             // 
@@ -384,7 +431,6 @@ namespace WinformUI
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnComboDetailDelete);
-            this.groupBox4.Controls.Add(this.btnComboDetailEdit);
             this.groupBox4.Controls.Add(this.btnComboDetailAdd);
             this.groupBox4.Controls.Add(this.tableLayoutPanel3);
             this.groupBox4.Controls.Add(this.dgvComboDetail);
@@ -397,21 +443,13 @@ namespace WinformUI
             // 
             // btnComboDetailDelete
             // 
-            this.btnComboDetailDelete.Location = new System.Drawing.Point(161, 97);
+            this.btnComboDetailDelete.Location = new System.Drawing.Point(261, 97);
             this.btnComboDetailDelete.Name = "btnComboDetailDelete";
             this.btnComboDetailDelete.Size = new System.Drawing.Size(94, 29);
             this.btnComboDetailDelete.TabIndex = 7;
             this.btnComboDetailDelete.Text = "Xóa";
             this.btnComboDetailDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnComboDetailEdit
-            // 
-            this.btnComboDetailEdit.Location = new System.Drawing.Point(261, 97);
-            this.btnComboDetailEdit.Name = "btnComboDetailEdit";
-            this.btnComboDetailEdit.Size = new System.Drawing.Size(94, 29);
-            this.btnComboDetailEdit.TabIndex = 6;
-            this.btnComboDetailEdit.Text = "Sửa";
-            this.btnComboDetailEdit.UseVisualStyleBackColor = true;
+            this.btnComboDetailDelete.Click += new System.EventHandler(this.btnComboDetailDelete_Click);
             // 
             // btnComboDetailAdd
             // 
@@ -421,6 +459,7 @@ namespace WinformUI
             this.btnComboDetailAdd.TabIndex = 5;
             this.btnComboDetailAdd.Text = "Thêm";
             this.btnComboDetailAdd.UseVisualStyleBackColor = true;
+            this.btnComboDetailAdd.Click += new System.EventHandler(this.btnComboDetailAdd_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -479,19 +518,19 @@ namespace WinformUI
             this.dgvComboDetail.AllowUserToAddRows = false;
             this.dgvComboDetail.AllowUserToDeleteRows = false;
             this.dgvComboDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvComboDetail.Location = new System.Drawing.Point(7, 132);
+            this.dgvComboDetail.Location = new System.Drawing.Point(-2, 138);
             this.dgvComboDetail.Name = "dgvComboDetail";
             this.dgvComboDetail.ReadOnly = true;
+            this.dgvComboDetail.RowHeadersVisible = false;
             this.dgvComboDetail.RowHeadersWidth = 51;
             this.dgvComboDetail.RowTemplate.Height = 29;
+            this.dgvComboDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvComboDetail.Size = new System.Drawing.Size(454, 215);
             this.dgvComboDetail.TabIndex = 0;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnComboDelete);
-            this.groupBox3.Controls.Add(this.btnComboEdit);
-            this.groupBox3.Controls.Add(this.btnComboAdd);
+            this.groupBox3.Controls.Add(this.flowLayoutPanel2);
             this.groupBox3.Controls.Add(this.tableLayoutPanel2);
             this.groupBox3.Location = new System.Drawing.Point(433, 4);
             this.groupBox3.Name = "groupBox3";
@@ -500,32 +539,58 @@ namespace WinformUI
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin combo";
             // 
-            // btnComboDelete
+            // flowLayoutPanel2
             // 
-            this.btnComboDelete.Location = new System.Drawing.Point(361, 97);
-            this.btnComboDelete.Name = "btnComboDelete";
-            this.btnComboDelete.Size = new System.Drawing.Size(94, 29);
-            this.btnComboDelete.TabIndex = 4;
-            this.btnComboDelete.Text = "Xóa";
-            this.btnComboDelete.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel2.Controls.Add(this.btnComboCancel);
+            this.flowLayoutPanel2.Controls.Add(this.btnComboSave);
+            this.flowLayoutPanel2.Controls.Add(this.btnComboAdd);
+            this.flowLayoutPanel2.Controls.Add(this.btnComboEdit);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(362, 23);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(99, 110);
+            this.flowLayoutPanel2.TabIndex = 2;
             // 
-            // btnComboEdit
+            // btnComboCancel
             // 
-            this.btnComboEdit.Location = new System.Drawing.Point(361, 61);
-            this.btnComboEdit.Name = "btnComboEdit";
-            this.btnComboEdit.Size = new System.Drawing.Size(94, 29);
-            this.btnComboEdit.TabIndex = 3;
-            this.btnComboEdit.Text = "Sửa";
-            this.btnComboEdit.UseVisualStyleBackColor = true;
+            this.btnComboCancel.Location = new System.Drawing.Point(3, 3);
+            this.btnComboCancel.Name = "btnComboCancel";
+            this.btnComboCancel.Size = new System.Drawing.Size(94, 29);
+            this.btnComboCancel.TabIndex = 1;
+            this.btnComboCancel.Text = "Hủy";
+            this.btnComboCancel.UseVisualStyleBackColor = true;
+            this.btnComboCancel.Visible = false;
+            this.btnComboCancel.Click += new System.EventHandler(this.btnComboCancel_Click);
+            // 
+            // btnComboSave
+            // 
+            this.btnComboSave.Location = new System.Drawing.Point(3, 38);
+            this.btnComboSave.Name = "btnComboSave";
+            this.btnComboSave.Size = new System.Drawing.Size(94, 29);
+            this.btnComboSave.TabIndex = 0;
+            this.btnComboSave.Text = "Lưu";
+            this.btnComboSave.UseVisualStyleBackColor = true;
+            this.btnComboSave.Visible = false;
+            this.btnComboSave.Click += new System.EventHandler(this.btnComboSave_Click);
             // 
             // btnComboAdd
             // 
-            this.btnComboAdd.Location = new System.Drawing.Point(361, 25);
+            this.btnComboAdd.Location = new System.Drawing.Point(3, 73);
             this.btnComboAdd.Name = "btnComboAdd";
             this.btnComboAdd.Size = new System.Drawing.Size(94, 29);
             this.btnComboAdd.TabIndex = 2;
             this.btnComboAdd.Text = "Thêm";
             this.btnComboAdd.UseVisualStyleBackColor = true;
+            this.btnComboAdd.Click += new System.EventHandler(this.btnComboAdd_Click);
+            // 
+            // btnComboEdit
+            // 
+            this.btnComboEdit.Location = new System.Drawing.Point(3, 108);
+            this.btnComboEdit.Name = "btnComboEdit";
+            this.btnComboEdit.Size = new System.Drawing.Size(94, 29);
+            this.btnComboEdit.TabIndex = 3;
+            this.btnComboEdit.Text = "Sửa";
+            this.btnComboEdit.UseVisualStyleBackColor = true;
+            this.btnComboEdit.Click += new System.EventHandler(this.btnComboEdit_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -577,6 +642,7 @@ namespace WinformUI
             // txComboId
             // 
             this.txComboId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txComboId.Enabled = false;
             this.txComboId.Location = new System.Drawing.Point(91, 3);
             this.txComboId.Name = "txComboId";
             this.txComboId.Size = new System.Drawing.Size(258, 27);
@@ -585,6 +651,7 @@ namespace WinformUI
             // txComboName
             // 
             this.txComboName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txComboName.Enabled = false;
             this.txComboName.Location = new System.Drawing.Point(91, 39);
             this.txComboName.Name = "txComboName";
             this.txComboName.Size = new System.Drawing.Size(258, 27);
@@ -593,6 +660,7 @@ namespace WinformUI
             // txComboPrice
             // 
             this.txComboPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txComboPrice.Enabled = false;
             this.txComboPrice.Location = new System.Drawing.Point(91, 75);
             this.txComboPrice.Name = "txComboPrice";
             this.txComboPrice.Size = new System.Drawing.Size(258, 27);
@@ -606,10 +674,13 @@ namespace WinformUI
             this.dgvCombo.Location = new System.Drawing.Point(9, 4);
             this.dgvCombo.Name = "dgvCombo";
             this.dgvCombo.ReadOnly = true;
+            this.dgvCombo.RowHeadersVisible = false;
             this.dgvCombo.RowHeadersWidth = 51;
             this.dgvCombo.RowTemplate.Height = 29;
+            this.dgvCombo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCombo.Size = new System.Drawing.Size(417, 495);
             this.dgvCombo.TabIndex = 0;
+            this.dgvCombo.SelectionChanged += new System.EventHandler(this.dgvCombo_SelectionChanged);
             // 
             // order
             // 
@@ -804,8 +875,27 @@ namespace WinformUI
             this.dgvOrder.ReadOnly = true;
             this.dgvOrder.RowHeadersWidth = 51;
             this.dgvOrder.RowTemplate.Height = 29;
+            this.dgvOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrder.Size = new System.Drawing.Size(467, 495);
             this.dgvOrder.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 108);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(94, 29);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Thêm";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(3, 143);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(94, 29);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Thêm";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -815,20 +905,23 @@ namespace WinformUI
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_LoadAsync);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.product.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductCountHistory)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).EndInit();
             this.combo.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComboDetail)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCombo)).EndInit();
@@ -851,9 +944,6 @@ namespace WinformUI
         private System.Windows.Forms.TabPage order;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvProduct;
-        private System.Windows.Forms.Button btnProductAdd;
-        private System.Windows.Forms.Button btnProductEdit;
-        private System.Windows.Forms.Button btnProductDelete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvProductListCountHistory;
@@ -870,7 +960,6 @@ namespace WinformUI
         private System.Windows.Forms.TextBox txProductPrice;
         private System.Windows.Forms.TextBox txProductCurrentCount;
         private System.Windows.Forms.TextBox txProductDescription;
-        private System.Windows.Forms.TextBox txProductType;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dgvComboDetail;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -882,11 +971,7 @@ namespace WinformUI
         private System.Windows.Forms.TextBox txComboName;
         private System.Windows.Forms.TextBox txComboPrice;
         private System.Windows.Forms.DataGridView dgvCombo;
-        private System.Windows.Forms.Button btnComboDelete;
-        private System.Windows.Forms.Button btnComboEdit;
-        private System.Windows.Forms.Button btnComboAdd;
         private System.Windows.Forms.Button btnComboDetailDelete;
-        private System.Windows.Forms.Button btnComboDetailEdit;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label11;
@@ -915,6 +1000,19 @@ namespace WinformUI
         private System.Windows.Forms.Button btnComboDetailAdd;
         private System.Windows.Forms.DataGridView De;
         private System.Windows.Forms.DataGridView dgvProductCountHistory;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btnProductSave;
+        private System.Windows.Forms.Button btnProductCancel;
+        private System.Windows.Forms.Button btnProductAdd;
+        private System.Windows.Forms.Button btnProductEdit;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Button btnComboSave;
+        private System.Windows.Forms.Button btnComboCancel;
+        private System.Windows.Forms.Button btnComboAdd;
+        private System.Windows.Forms.Button btnComboEdit;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ComboBox cbProductType;
     }
 }
 
